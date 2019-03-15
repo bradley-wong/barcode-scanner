@@ -59,3 +59,15 @@ typings/
 
 # next.js build output
 .next
+
+# expo gitignore
+node_modules/**/*
+.expo/*
+npm-debug.*
+*.jks
+*.p12
+*.key
+*.mobileprovision
+.watchmanconfig
+babel.config.js
+yarn.lock
