@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { BarCodeScanner, Permissions } from 'expo';
+import { BarCodeScanner, Camera, Permissions } from 'expo';
 
 export default class BarcodeScannerExample extends React.Component {
   state = {
@@ -32,6 +32,7 @@ export default class BarcodeScannerExample extends React.Component {
   }
 
   handleBarCodeScanned = ({ type, data }) => {
+    pausePreview();
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   }
 }
