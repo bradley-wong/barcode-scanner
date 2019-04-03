@@ -14,7 +14,10 @@ const RootStack = createStackNavigator(
         },
         Details: {
             screen: SecondScreen
-        }
+        },
+        Barcode: {
+            screen: BarcodeScannerExample
+        },
     },
     {
         initialRouteName: 'Home',

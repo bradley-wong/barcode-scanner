@@ -3,6 +3,17 @@ import { StyleSheet, Text, View } from 'react-native';
 import { BarCodeScanner, Camera, Permissions } from 'expo';
 
 export default class BarcodeScannerExample extends React.Component {
+  static navigationOptions = {
+    title: 'Barcode',
+    headerStyle: {
+        backgroundColor: '#F59BAD',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+        fontWeight: 'bold',
+    },
+};
+
   state = {
     hasCameraPermission: null,
   }
@@ -32,7 +43,8 @@ export default class BarcodeScannerExample extends React.Component {
   }
 
   handleBarCodeScanned = ({ type, data }) => {
-    pausePreview();
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    // pausePreview();
+    this.props.navigation.navigate('Details', {type, data})
+    // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   }
 }
