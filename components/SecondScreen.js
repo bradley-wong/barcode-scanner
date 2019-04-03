@@ -21,6 +21,11 @@ export default class SecondScreen extends React.Component {
             upc_type: '',
             barcode: ''
         }
+        this.buttonEvent = this.buttonEvent.bind(this);
+    }
+
+    buttonEvent(upc, barcode) {
+        alert(`Bar code with type ${upc} and data ${barcode} has been scanned!`);
     }
 
     render() {
@@ -45,6 +50,8 @@ export default class SecondScreen extends React.Component {
                             onChangeText={(text) => this.setState({barcode: text})}
                             value={someTitle}/>
                     </View>
+                    <Button onPress={() => this.buttonEvent(someId,someTitle)} title="Add to DB"
+                        color="lavender" accessibilityLabel="Learn more about this purple button" />
                 </View>
             </View>
         );
