@@ -71,3 +71,6 @@ npm-debug.*
 .watchmanconfig
 babel.config.js
 yarn.lock
+
+# firebase db
+db.js

@@ -3,20 +3,24 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 // import { Camera } from "expo"
-import BarcodeScannerExample from './components/BarcodeScanner';
-import HomeScreen from './components/HomeScreen';
-import SecondScreen from './components/SecondScreen';
+import BarcodeScanner from './view/BarcodeScanner';
+import Home from './view/Home';
+import AddItem from './view/AddItem';
+import ListItem from './view/ListItem';
 
 const RootStack = createStackNavigator(
     {
         Home: {
-            screen: HomeScreen
+            screen: Home
         },
-        Details: {
-            screen: SecondScreen
+        Add: {
+            screen: AddItem
+        },
+        List: {
+            screen: ListItem
         },
         Barcode: {
-            screen: BarcodeScannerExample
+            screen: BarcodeScanner
         },
     },
     {
