@@ -16,6 +16,7 @@ export default class Login extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handlePChange = this.handlePChange.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
   }
 
 
@@ -43,10 +44,27 @@ export default class Login extends Component {
       password: e.nativeEvent.text
     })
   }
+
   handleRegister() {
     registerAcc(this.state.name, this.state.password)
       .then(r => Alert.alert(r))
       .catch(e => Alert.alert(e))
+  }
+
+  handleLogin() {
+    let accounts = db.ref('/accounts');
+    accounts.on('value', (snapshot) => {
+      let userdata = snapshot.val()[this.state.name]
+      if (userdata) {
+        if (userdata.password === this.state.password) {
+          this.props.navigation.navigate('Home', { user: this.state.name });
+        } else {
+          Alert.alert('Invalid Login')
+        }
+      } else {
+        Alert.alert('Invalid Login')
+      }
+    })
   }
 
   render() {
@@ -56,11 +74,17 @@ export default class Login extends Component {
         <TextInput
           style={styles.itemInput}
           onChange={this.handleChange}
-          placeholder={"Username"} />
+          placeholder="Username" />
         <TextInput
           style={styles.itemInput}
           onChange={this.handlePChange}
-          placeholder={"Password"}/>
+          placeholder="Password" />
+        <TouchableHighlight
+          style={styles.button}
+          underlayColor="white"
+          onPress={this.handleLogin} >
+          <Text style={styles.title}>Login</Text>
+        </TouchableHighlight>
         <TouchableHighlight
           style={styles.button}
           underlayColor="white"
