@@ -34,7 +34,7 @@ export default class AddItem extends Component {
   componentWillMount() {
     const { navigation } = this.props;
     console.log(navigation.getParam('user'))
-    this.setState({ user: navigation.getParam('user'), barcode: navigation.getParam('data', 'No code').toString(), upc_type: navigation.getParam('type', 'NO-ID').toString() })
+    this.setState({ user: navigation.getParam('user'), barcode: navigation.getParam('data', '').toString(), upc_type: navigation.getParam('type', '').toString() })
   }
 
   componentDidMount() {

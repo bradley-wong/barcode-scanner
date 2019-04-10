@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
+import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { db } from '../db';
 import {
   encode,
@@ -9,19 +9,18 @@ import {
 } from 'firebase-encode';
 
 
-export default class ListItem extends Component {
+export default class SearchItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: undefined,
+      barcode: undefined,
       items: []
     }
   }
 
 
-
   static navigationOptions = {
-    title: 'ListItem',
+    title: 'AddItem',
     headerStyle: {
       backgroundColor: '#F59BAD',
     },
@@ -33,37 +32,41 @@ export default class ListItem extends Component {
 
   componentWillMount() {
     const { navigation } = this.props;
-    console.log(navigation.getParam('user'))
-    this.setState({ user: navigation.getParam('user') })
+    console.log(navigation.getParam('barcode'))
+    this.setState({ barcode: navigation.getParam('barcode') })
   }
 
   componentDidMount() {
-    console.log(this.state.user)
-    db.ref(`accounts/${encode(this.state.user)}/barcodes`).on('value', (snapshot) => {
-      this.setState({ items: (snapshot.val() == undefined) ? [] : Object.values(snapshot.val()) })
+    db.ref(`accounts/`).on('value', (snapshot) => {
+      let items = []
+      for (account of Object.values(snapshot.val())) {
+        if (account.barcodes) {
+          for (code of Object.values(account.barcodes)) {
+            if (code.barcode == this.state.barcode) {
+              items.push(code)
+            }
+         }
+        }
+      }
+
+
+      this.setState({ items: items })
+
+
     })
   }
 
-
-
-
   render() {
     return (
-      <View style={styles.main}>
+      <View style={styles.main} >
         <FlatList
           data={this.state.items}
           renderItem={({ item }) => <View style={styles.row}>
-            <Text style={styles.title}>{decode(item.name.toString())}</Text>
-            <Text style={styles.item}>Price:{decode(item.price.toString())}</Text>
-            <Text style={styles.stat}>Barcode:{decode(item.barcode.toString())}</Text>
-            <Text style={styles.stat}>UPC:{decode(item.upc.toString())}</Text>
+            <Text style={styles.title}>Price:{decode(item.price.toString())}</Text>
+            <Text style={styles.item}>Item Name:{decode(item.name.toString())}</Text>
             <Text style={styles.stat}>Last Modified:{new Date(item.date).toDateString()}</Text>
-            <Button
-              title="View item prices"
-              onPress={() => this.props.navigation.push("Search", { barcode: item.barcode.toString() })} />
           </View>}
-          keyExtractor={(item, index) => index.toString()} />
-      </View>
+          keyExtractor={(item, index) => index.toString()} /></View>
     )
   }
 }

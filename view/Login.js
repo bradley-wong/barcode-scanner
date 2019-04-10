@@ -83,7 +83,8 @@ export default class Login extends Component {
         <TextInput
           style={styles.itemInput}
           onChange={this.handlePChange}
-          placeholder="Password" />
+          placeholder="Password"
+          secureTextEntry={true}/>
         <TouchableHighlight
           style={styles.button}
           underlayColor="white"

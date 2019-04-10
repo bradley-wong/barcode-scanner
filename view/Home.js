@@ -40,12 +40,12 @@ export default class Home extends Component {
           }}
         />
 
-        {/* <Button
+        <Button
           title="Add Items"
           onPress={() => {
-            this.props.navigation.navigate('Add', { user: this.state.name });
+            this.props.navigation.navigate('Add', { user: this.state.user });
           }}
-        /> */}
+        />
 
         <Button
           title="List Items"

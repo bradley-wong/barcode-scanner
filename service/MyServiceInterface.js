@@ -24,7 +24,7 @@ export const addItem = (username, barcode, itemName, price, upctype) => {
       price: encodedPrice,
       upc: encodedUPC,
       date: new Date(),
-      barcode: [encodedBarcode]
+      barcode: encodedBarcode
     }
   });
 }
@@ -35,6 +35,7 @@ export const registerAcc = (username, password) => {
   let encodedPassword = encode(password)
 
   return new Promise((resolve, reject) => {
+    if (username === '') { reject('Username cannot be left blank') }
     let userRef = db.ref(`/accounts/${encodedUsername}`);
     userRef.transaction((currentData) => {
       if (currentData === null) {
