@@ -23,7 +23,6 @@ export default class Home extends Component {
 
   componentWillMount() {
     const { navigation } = this.props;
-    console.log(navigation.getParam('user'))
     this.setState({ user: navigation.getParam('user') })
 
   }
@@ -37,21 +36,21 @@ export default class Home extends Component {
         <Button
           title="Scan Items"
           onPress={() => {
-            this.props.navigation.navigate('Barcode', { user: this.state.name });
+            this.props.navigation.navigate('Barcode', { user: this.state.user });
           }}
         />
 
-        <Button
+        {/* <Button
           title="Add Items"
           onPress={() => {
             this.props.navigation.navigate('Add', { user: this.state.name });
           }}
-        />
+        /> */}
 
         <Button
           title="List Items"
           onPress={() => {
-            this.props.navigation.navigate('List', { user: this.state.name });
+            this.props.navigation.navigate('List', { user: this.state.user });
           }}
         />
       </View>

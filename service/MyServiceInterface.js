@@ -7,11 +7,28 @@ import {
 } from 'firebase-encode';
 
 
-export const addItem = (username, barcode) => {
-  db.ref(`/accounts/${username}/${barcode}`).push({
-    name: item
+export const addItem = (username, barcode, itemName, price, upctype) => {
+  console.log('reee', username, barcode, itemName, price, upctype)
+  let encodedUsername = encode(username),
+    encodedBarcode = encode(barcode.toString()),
+    encodedName = encode(itemName.toString()),
+    encodedPrice = encode(price.toString()),
+    encodedUPC = encode(upctype.toString())
+
+
+
+
+  db.ref(`/accounts/${encodedUsername}/barcodes`).update({
+    [encodedBarcode]: {
+      name: encodedName,
+      price: encodedPrice,
+      upc: encodedUPC,
+      date: new Date(),
+      barcode: [encodedBarcode]
+    }
   });
 }
+
 
 export const registerAcc = (username, password) => {
   let encodedUsername = encode(username)

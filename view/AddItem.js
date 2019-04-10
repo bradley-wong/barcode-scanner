@@ -13,7 +13,8 @@ export default class AddItem extends Component {
       name: '',
       error: false,
       upc_type: '',
-      barcode: ''
+      barcode: '',
+      price: 0
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,8 +34,7 @@ export default class AddItem extends Component {
   componentWillMount() {
     const { navigation } = this.props;
     console.log(navigation.getParam('user'))
-    this.setState({ user: navigation.getParam('user') })
-
+    this.setState({ user: navigation.getParam('user'), barcode: navigation.getParam('data', 'No code').toString(), upc_type: navigation.getParam('type', 'NO-ID').toString() })
   }
 
   componentDidMount() {
@@ -55,15 +55,14 @@ export default class AddItem extends Component {
     });
   }
 
-  handleSubmit(upc_type, barcode, name) {
-    addItem(this.state.user,{upc: upc_type, barcode: barcode, name: name});
+  handleSubmit(barcode, name, price, upc_type) {
+    console.log(this.state.user, barcode, name, price, upc_type)
+    addItem(this.state.user, barcode, name, price, upc_type);
     Alert.alert('Item saved successfully');
   }
 
   render() {
     const { navigation } = this.props;
-    const someId = navigation.getParam('type', 'NO-ID');
-    const someTitle = navigation.getParam('data', 'No code');
     return (
       <View style={styles.main}>
         <Text style={styles.title}>Add Item</Text>
@@ -79,13 +78,16 @@ export default class AddItem extends Component {
           <Text>UPC-Type:</Text>
           <TextInput placeholder='UPC-Type'
             onChangeText={(text) => this.setState({ upc_type: text })}
-            value={someId} />
+            value={this.state.upc_type} />
         </View>
         <View style={styles.input}>
           <Text>Barcode:</Text>
           <TextInput placeholder='Barcode'
-            onChangeText={(text) => this.setState({ barcode: text })}
-            value={someTitle} />
+            onChangeText={(text) => {
+              this.setState({ barcode: text })
+              console.log(text)
+            }}
+            value={this.state.barcode} />
         </View>
         <View style={styles.input}>
           <Text>Item Name:</Text>
@@ -93,7 +95,7 @@ export default class AddItem extends Component {
             onChangeText={(text) => this.setState({ name: text })}
           />
         </View>
-        <Button onPress={() => this.handleSubmit(someId, someTitle, this.state.name)} title="Add to DB"
+        <Button onPress={() => this.handleSubmit(this.state.barcode, this.state.name, this.state.price, this.state.upc_type)} title="Add to DB"
           color="lavender" accessibilityLabel="Learn more about this purple button" />
       </View>
     )
