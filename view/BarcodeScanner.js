@@ -3,25 +3,39 @@ import { StyleSheet, Text, View } from 'react-native';
 import { BarCodeScanner, Camera, Permissions } from 'expo';
 
 export default class BarcodeScanner extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      user: undefined
+    }
+  }
+
   static navigationOptions = {
     title: 'Barcode',
     headerStyle: {
-        backgroundColor: '#F59BAD',
+      backgroundColor: '#F59BAD',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-        fontWeight: 'bold',
+      fontWeight: 'bold',
     },
-};
+  };
 
   state = {
     hasCameraPermission: null,
   }
 
+  componentWillMount() {
+    const { navigation } = this.props;
+    console.log(navigation.getParam('user'))
+    this.setState({ user: navigation.getParam('user') })
+
+  }
+
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
-    }
+  }
 
   render() {
     const { hasCameraPermission } = this.state;
@@ -44,7 +58,8 @@ export default class BarcodeScanner extends React.Component {
 
   handleBarCodeScanned = ({ type, data }) => {
     // pausePreview();
-    this.props.navigation.navigate('Add', {type, data})
+    console.log('hi', this.state.user)
+    this.props.navigation.navigate('Add', { user: this.state.user, type: type, data: data })
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   }
 }

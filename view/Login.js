@@ -3,7 +3,12 @@ import { Alert, View, StyleSheet, Text, Button, TextInput, TouchableHighlight } 
 
 import { db } from '../db';
 import { registerAcc } from '../service/MyServiceInterface';
-
+import {
+  encode,
+  decode,
+  encodeComponents,
+  decodeComponents,
+} from 'firebase-encode';
 
 export default class Login extends Component {
   constructor(props) {
@@ -54,10 +59,10 @@ export default class Login extends Component {
   handleLogin() {
     let accounts = db.ref('/accounts');
     accounts.on('value', (snapshot) => {
-      let userdata = snapshot.val()[this.state.name]
+      let userdata = snapshot.val()[encode(this.state.name)]
       if (userdata) {
-        if (userdata.password === this.state.password) {
-          this.props.navigation.navigate('Home', { user: this.state.name });
+        if (decode(userdata.password) === this.state.password) {
+          this.props.navigation.navigate('Home', { user: decode(this.state.name) });
         } else {
           Alert.alert('Invalid Login')
         }
@@ -78,7 +83,8 @@ export default class Login extends Component {
         <TextInput
           style={styles.itemInput}
           onChange={this.handlePChange}
-          placeholder="Password" />
+          placeholder="Password"
+          secureTextEntry={true}/>
         <TouchableHighlight
           style={styles.button}
           underlayColor="white"
