@@ -1,14 +1,14 @@
 import { db } from '../db';
 
-export const addItem = (item) => {
-  db.ref('/items').push({
+export const addItem = (username, barcode) => {
+  db.ref(`/accounts/${username}/${barcode}`).push({
     name: item
   });
 }
 
 export const registerAcc = (username, password) => {
   return new Promise((resolve, reject) => {
-    var userRef = db.ref(`/accounts/${username}`);
+    let userRef = db.ref(`/accounts/${username}`);
     userRef.transaction((currentData) => {
       if (currentData === null) {
         return { password: password }
@@ -27,6 +27,4 @@ export const registerAcc = (username, password) => {
       }
     })
   })
-
-
 }
