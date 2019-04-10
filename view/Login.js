@@ -51,9 +51,9 @@ export default class Login extends Component {
   }
 
   handleRegister() {
-    registerAcc(encode(this.state.name), encode(this.state.password))
-      .then(r => Alert.alert(decode(r)))
-      .catch(e => Alert.alert(decode(e)))
+    registerAcc(this.state.name, this.state.password)
+      .then(r => Alert.alert(r))
+      .catch(e => Alert.alert(e))
   }
 
   handleLogin() {
@@ -61,7 +61,7 @@ export default class Login extends Component {
     accounts.on('value', (snapshot) => {
       let userdata = snapshot.val()[encode(this.state.name)]
       if (userdata) {
-        if (decode(userdata.password) === decode(this.state.password)) {
+        if (decode(userdata.password) === this.state.password) {
           this.props.navigation.navigate('Home', { user: decode(this.state.name) });
         } else {
           Alert.alert('Invalid Login')
