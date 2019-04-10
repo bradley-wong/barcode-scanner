@@ -95,7 +95,13 @@ export default class AddItem extends Component {
             onChangeText={(text) => this.setState({ name: text })}
           />
         </View>
-        <Button onPress={() => this.handleSubmit(this.state.barcode, this.state.name, this.state.price, this.state.upc_type)} title="Add to DB"
+        <View style={styles.input}>
+          <Text>Item Price:</Text>
+          <TextInput placeholder='Product-Price'
+            onChangeText={(text) => this.setState({ price: text })}
+          />
+        </View>
+        <Button onPress={() => this.handleSubmit(this.state.barcode, this.state.name, this.state.price, this.state.upc_type, this.state.price)} title="Add to DB"
           color="lavender" accessibilityLabel="Learn more about this purple button" />
       </View>
     )

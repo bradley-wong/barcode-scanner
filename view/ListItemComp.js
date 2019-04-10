@@ -9,7 +9,7 @@ import {
 } from 'firebase-encode';
 
 
-export default class ListItem extends Component {
+export default class ListItemComp extends Component {
   constructor(props) {
     super(props)
     this.state = {

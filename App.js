@@ -2,11 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, YellowBox } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-// import { Camera } from "expo"
 import BarcodeScanner from './view/BarcodeScanner';
 import Home from './view/Home';
 import AddItem from './view/AddItem';
-import ListItem from './view/ListItem';
+import ListItemComp from './view/ListItemComp';
 import Login from './view/Login'
 import SearchItem from './view/SearchItem'
 YellowBox.ignoreWarnings(['Setting a timer'])
@@ -23,7 +22,7 @@ const RootStack = createStackNavigator(
       screen: AddItem
     },
     List: {
-      screen: ListItem
+      screen: ListItemComp
     },
     Barcode: {
       screen: BarcodeScanner
@@ -45,9 +44,3 @@ export default class App extends React.Component {
     return <AppContainer />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
