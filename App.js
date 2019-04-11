@@ -6,8 +6,9 @@ import BarcodeScanner from './view/BarcodeScanner';
 import Home from './view/Home';
 import AddItem from './view/AddItem';
 import ListItemComp from './view/ListItemComp';
-import Login from './view/Login'
-import SearchItem from './view/SearchItem'
+import Login from './view/Login';
+import SearchItem from './view/SearchItem';
+import UpdateItem from './view/UpdateItem';
 YellowBox.ignoreWarnings(['Setting a timer'])
 
 const RootStack = createStackNavigator(
@@ -29,6 +30,9 @@ const RootStack = createStackNavigator(
     },
     Search: {
       screen: SearchItem
+    },
+    Update: {
+      screen: UpdateItem
     }
   },
   {
