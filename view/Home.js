@@ -31,24 +31,24 @@ export default class Home extends Component {
     console.log('User:', this.state.user)
     return (
       <View style={styles.main}>
-        <Text style={styles.title}>Home Screen</Text>
+        <Text style={styles.title}>Hello {this.state.user}!</Text>
 
         <Button
-          title="Scan Items"
+          title="Barcode Scanner"
           onPress={() => {
             this.props.navigation.navigate('Barcode', { user: this.state.user });
           }}
         />
 
         <Button
-          title="Add Items"
+          title="Add an Item"
           onPress={() => {
             this.props.navigation.navigate('Add', { user: this.state.user });
           }}
         />
 
         <Button
-          title="List Items"
+          title="Favorites"
           onPress={() => {
             this.props.navigation.navigate('List', { user: this.state.user });
           }}
@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: 10
   },
   list: {
     fontSize: 14
