@@ -29,6 +29,11 @@ export const addItem = (username, barcode, itemName, price, upctype) => {
   });
 }
 
+export const delItem = (username, userBarcode) => {
+  let encodedUsername = encode(username),
+    encodedUserBarcode = encode(userBarcode)
+  db.ref(`/accounts/${encodedUsername}/barcodes/${encodedUserBarcode}`).remove()
+}
 
 export const registerAcc = (username, password) => {
   let encodedUsername = encode(username)
