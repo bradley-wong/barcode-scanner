@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import { Alert, StyleSheet, TextInput, TouchableHighlight, View, Text, Button } from 'react-native';
 import { addItem } from '../service/MyServiceInterface';
 import { db } from '../db';
+import {
+    encode,
+    decode,
+    encodeComponents,
+    decodeComponents,
+  } from 'firebase-encode';
 
 let itemsRef = db.ref('/items');
 
-export default class AddItem extends Component {
+export default class UpdateItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +27,7 @@ export default class AddItem extends Component {
   }
 
   static navigationOptions = {
-    title: 'Add an Item',
+    title: 'UpdateItem',
     headerStyle: {
       backgroundColor: '#F59BAD',
     },
@@ -34,7 +40,13 @@ export default class AddItem extends Component {
   componentWillMount() {
     const { navigation } = this.props;
     console.log(navigation.getParam('user'))
-    this.setState({ user: navigation.getParam('user'), barcode: navigation.getParam('data', '').toString(), upc_type: navigation.getParam('type', '').toString() })
+    this.setState({ 
+        user: navigation.getParam('user'), 
+        barcode: navigation.getParam('barcode', '').toString(), 
+        upc_type: navigation.getParam('upc_type', '').toString(),
+        name: navigation.getParam('name', '').toString(),
+        price: navigation.getParam('price', '')
+     })
   }
 
   componentDidMount() {
@@ -65,7 +77,7 @@ export default class AddItem extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.main}>
-        <Text style={styles.title}>Add an Item</Text>
+        <Text style={styles.title}>Update Item</Text>
         <View style={styles.input}>
           <Text>UPC-Type:</Text>
           <TextInput placeholder='UPC-Type'
@@ -85,16 +97,18 @@ export default class AddItem extends Component {
           <Text>Item Name:</Text>
           <TextInput placeholder='Product-Name'
             onChangeText={(text) => this.setState({ name: text })}
+            value={this.state.name}
           />
         </View>
         <View style={styles.input}>
           <Text>Item Price:</Text>
           <TextInput placeholder='Product-Price'
             onChangeText={(text) => this.setState({ price: text })}
+            value={decode(this.state.price.toString())}
           />
         </View>
-        <Button onPress={() => this.handleSubmit(this.state.barcode, this.state.name, this.state.price, this.state.upc_type, this.state.price)} title="Add to DB"
-          accessibilityLabel="Learn more about this purple button" />
+        <Button onPress={() => this.handleSubmit(this.state.barcode, this.state.name, this.state.price, this.state.upc_type)} title="Update"
+          color="lavender" accessibilityLabel="Learn more about this purple button" />
       </View>
     )
   }

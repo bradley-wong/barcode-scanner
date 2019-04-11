@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, FlatList } from 'react-native';
+import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
 import { db } from '../db';
 import {
   encode,
@@ -7,14 +7,17 @@ import {
   encodeComponents,
   decodeComponents,
 } from 'firebase-encode';
+import DialogInput from 'react-native-dialog-input';
 
 
 export default class SearchItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      user: undefined,
       barcode: undefined,
-      items: []
+      items: [],
+      isDialogVisible: false
     }
   }
 
@@ -32,8 +35,8 @@ export default class SearchItem extends Component {
 
   componentWillMount() {
     const { navigation } = this.props;
-    console.log(navigation.getParam('barcode'))
-    this.setState({ barcode: navigation.getParam('barcode') })
+    console.log(navigation.getParam('user'), navigation.getParam('barcode'))
+    this.setState({ user: navigation.getParam('user'), barcode: navigation.getParam('barcode') })
   }
 
   componentDidMount() {
@@ -57,6 +60,7 @@ export default class SearchItem extends Component {
   }
 
   render() {
+    console.log(this.state.items)
     return (
       <View style={styles.main} >
         <FlatList
@@ -65,6 +69,17 @@ export default class SearchItem extends Component {
             <Text style={styles.title}>Price: ${decode(item.price.toString())}</Text>
             <Text style={styles.item}>Item Name: {decode(item.name.toString())}</Text>
             <Text style={styles.stat}>Last Modified: {new Date(item.date).toDateString()}</Text>
+            <Button
+              title="Update Price"
+              onPress={() => {
+                this.props.navigation.navigate('Update', { 
+                  user: this.state.user,
+                  barcode: item.barcode.toString(),
+                  name: item.name, 
+                  price: item.price,
+                  upc_type: item.upc });
+              }}
+            />
           </View>}
           keyExtractor={(item, index) => index.toString()} /></View>
     )

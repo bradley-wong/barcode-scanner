@@ -19,7 +19,6 @@ export default class ListItemComp extends Component {
     }
   }
 
-
   static navigationOptions = {
     title: 'Favorites',
     headerStyle: {
@@ -28,7 +27,7 @@ export default class ListItemComp extends Component {
     headerTintColor: '#fff',
     headerTitleStyle: {
       fontWeight: 'bold',
-    },
+    }
   };
 
   componentWillMount() {
@@ -44,9 +43,6 @@ export default class ListItemComp extends Component {
     })
   }
 
-
-
-
   render() {
     return (
       <View style={styles.main}>
@@ -60,7 +56,7 @@ export default class ListItemComp extends Component {
             <Text style={styles.stat}>Last Modified: {new Date(item.date).toDateString()}</Text>
             <Button
               title="View item prices"
-              onPress={() => this.props.navigation.push("Search", { barcode: item.barcode.toString() })} />
+              onPress={() => this.props.navigation.push("Search", { user: this.state.user, barcode: item.barcode.toString() })} />
             <Button
               title="Delete"
               color="red"
