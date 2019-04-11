@@ -20,7 +20,7 @@ export default class SearchItem extends Component {
 
 
   static navigationOptions = {
-    title: 'AddItem',
+    title: 'Price Check',
     headerStyle: {
       backgroundColor: '#F59BAD',
     },
@@ -62,9 +62,9 @@ export default class SearchItem extends Component {
         <FlatList
           data={this.state.items}
           renderItem={({ item }) => <View style={styles.row}>
-            <Text style={styles.title}>Price:{decode(item.price.toString())}</Text>
-            <Text style={styles.item}>Item Name:{decode(item.name.toString())}</Text>
-            <Text style={styles.stat}>Last Modified:{new Date(item.date).toDateString()}</Text>
+            <Text style={styles.title}>Price: {decode(item.price.toString())}</Text>
+            <Text style={styles.item}>Item Name: {decode(item.name.toString())}</Text>
+            <Text style={styles.stat}>Last Modified: {new Date(item.date).toDateString()}</Text>
           </View>}
           keyExtractor={(item, index) => index.toString()} /></View>
     )
@@ -82,8 +82,9 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     padding: 20,
-    borderBottomWidth: 2,
-    borderColor: 'white'
+    borderWidth: 2,
+    borderColor: 'white',
+    marginBottom: 4,
   },
   title: {
     fontSize: 25,

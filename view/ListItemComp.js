@@ -21,7 +21,7 @@ export default class ListItemComp extends Component {
 
 
   static navigationOptions = {
-    title: 'ListItem',
+    title: 'Favorites',
     headerStyle: {
       backgroundColor: '#F59BAD',
     },
@@ -54,10 +54,10 @@ export default class ListItemComp extends Component {
           data={this.state.items}
           renderItem={({ item }) => <View style={styles.row}>
             <Text style={styles.title}>{decode(item.name.toString())}</Text>
-            <Text style={styles.item}>Price:{decode(item.price.toString())}</Text>
-            <Text style={styles.stat}>Barcode:{decode(item.barcode.toString())}</Text>
-            <Text style={styles.stat}>UPC:{decode(item.upc.toString())}</Text>
-            <Text style={styles.stat}>Last Modified:{new Date(item.date).toDateString()}</Text>
+            <Text style={styles.item}>Price: {decode(item.price.toString())}</Text>
+            <Text style={styles.stat}>Barcode: {decode(item.barcode.toString())}</Text>
+            <Text style={styles.stat}>UPC: {decode(item.upc.toString())}</Text>
+            <Text style={styles.stat}>Last Modified: {new Date(item.date).toDateString()}</Text>
             <Button
               title="View item prices"
               onPress={() => this.props.navigation.push("Search", { barcode: item.barcode.toString() })} />
@@ -79,8 +79,9 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     padding: 20,
-    borderBottomWidth: 2,
-    borderColor: 'white'
+    borderWidth: 2,
+    borderColor: 'white',
+    marginBottom: 4,
   },
   title: {
     fontSize: 25,

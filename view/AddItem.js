@@ -21,7 +21,7 @@ export default class AddItem extends Component {
   }
 
   static navigationOptions = {
-    title: 'AddItem',
+    title: 'Add an Item',
     headerStyle: {
       backgroundColor: '#F59BAD',
     },
@@ -65,7 +65,7 @@ export default class AddItem extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.main}>
-        <Text style={styles.title}>Add Item</Text>
+        <Text style={styles.title}>Add an Item</Text>
         {/* <TextInput style={styles.itemInput} onChange={this.handleChange}/> */}
         {/* <TouchableHighlight
                         style = {styles.button}
@@ -102,7 +102,7 @@ export default class AddItem extends Component {
           />
         </View>
         <Button onPress={() => this.handleSubmit(this.state.barcode, this.state.name, this.state.price, this.state.upc_type, this.state.price)} title="Add to DB"
-          color="lavender" accessibilityLabel="Learn more about this purple button" />
+          accessibilityLabel="Learn more about this purple button" />
       </View>
     )
   }

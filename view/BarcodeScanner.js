@@ -11,7 +11,7 @@ export default class BarcodeScanner extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Barcode',
+    title: 'Barcode Scanner',
     headerStyle: {
       backgroundColor: '#F59BAD',
     },
