@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
+import { delItem } from '../service/MyServiceInterface';
 import { db } from '../db';
 import {
   encode,
@@ -17,7 +18,6 @@ export default class ListItemComp extends Component {
       items: []
     }
   }
-
 
 
   static navigationOptions = {
@@ -54,13 +54,17 @@ export default class ListItemComp extends Component {
           data={this.state.items}
           renderItem={({ item }) => <View style={styles.row}>
             <Text style={styles.title}>{decode(item.name.toString())}</Text>
-            <Text style={styles.item}>Price: {decode(item.price.toString())}</Text>
+            <Text style={styles.title}>Price: ${decode(item.price.toString())}</Text>
             <Text style={styles.stat}>Barcode: {decode(item.barcode.toString())}</Text>
             <Text style={styles.stat}>UPC: {decode(item.upc.toString())}</Text>
             <Text style={styles.stat}>Last Modified: {new Date(item.date).toDateString()}</Text>
             <Button
               title="View item prices"
               onPress={() => this.props.navigation.push("Search", { barcode: item.barcode.toString() })} />
+            <Button
+              title="Delete"
+              color="red"
+              onPress={() => delItem(this.state.user, item.barcode.toString())} />
           </View>}
           keyExtractor={(item, index) => index.toString()} />
       </View>
